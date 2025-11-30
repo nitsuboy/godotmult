@@ -22,8 +22,7 @@ func _init():
 	peer.supported_protocols = ["ludus"]
 
 func _ready():
-	udp_sender.bind(LISTEN_PORT)
-	udp_listener.bind(SEND_PORT)
+	udp_listener.bind(LISTEN_PORT)
 	
 	multiplayer.peer_connected.connect(_peer_connected)
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
@@ -66,7 +65,7 @@ func get_lan_ip() -> String:
 func scan_servers():
 	udp_sender.set_broadcast_enabled(true)
 	print("Procurando servidores na LAN...")
-	udp_sender.connect_to_host("255.255.255.255", LISTEN_PORT)
+	udp_sender.set_dest_address("255.255.255.255", LISTEN_PORT)
 	udp_sender.put_var("DISCOVER_SERVER")
 	
 
