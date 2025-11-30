@@ -1,0 +1,14 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1764470903
+icon.webp::CompressedTexture2D::3453845848210238718::1707179290::1764425925::1::::<><><>0<>0<>252933996b13cb5f99fb1370efe7fc0e<>res://.godot/imported/icon.webp-e94f9a68b0f625a567a797079e4d325f.ctex::
+README.md::TextFile::-1::1711577847::0::1::::<><><>0<>0<><>::
+::res://img/::1764425925
+crown.png::CompressedTexture2D::4851449238377541894::1678748971::1764425925::1::::<><><>0<>0<>93f6b9138dc525a5647ce6086c29325a<>res://.godot/imported/crown.png-e045c089dd74eef6efb0fe54ea72640d.ctex::
+::res://scene/::1764466919
+combo.tscn::PackedScene::6342223881879856890::1764466778::0::1::::<><><>0<>0<><>::uid://bgnudi3ou7fj8::::res://script/combo.gd<>uid://c240icwf4uov8::::res://scene/main.tscn
+game.tscn::PackedScene::-1::1707179290::0::1::::<><><>0<>0<><>::res://script/game.gd
+main.tscn::PackedScene::6729339450950342067::1764466919::0::1::::<><><>0<>0<><>::uid://co0s2rsk4gc72::::res://script/main.gd<>res://scene/game.tscn
+::res://script/::1764467127
+combo.gd::GDScript::2835610817666527719::1707179290::0::1::::<>Control<><>0<>0<><>::
+game.gd::GDScript::280350927422925963::1711577847::0::1::::<>Control<><>0<>0<><>::
+main.gd::GDScript::5808236665672157603::1764467127::0::1::::<>Control<><>0<>0<><>::
