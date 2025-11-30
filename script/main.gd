@@ -13,7 +13,8 @@ const PROTO_NAME = "ludus"
 @onready var _game = $Panel/VBoxContainer/Game
 
 var peer = WebSocketMultiplayerPeer.new()
-var udp = PacketPeerUDP.new()
+var udp_sender = PacketPeerUDP.new()
+var udp_listener = PacketPeerUDP.new()
 var is_host = false
 var num_players = 0
 
@@ -21,7 +22,8 @@ func _init():
 	peer.supported_protocols = ["ludus"]
 
 func _ready():
-	udp.bind(SEND_PORT)
+	udp_sender.bind(LISTEN_PORT)
+	udp_listener.bind(SEND_PORT)
 	
 	multiplayer.peer_connected.connect(_peer_connected)
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
@@ -40,13 +42,13 @@ func _ready():
 
 
 func  _process(_delta: float) -> void:
-	if udp.get_available_packet_count() > 0:
-		var msg = udp.get_var()
-		var ip = udp.get_packet_ip()
+	if udp_listener.get_available_packet_count() > 0:
+		var msg = udp_listener.get_var()
+		var ip = udp_listener.get_packet_ip()
 		if msg is String and msg == "DISCOVER_SERVER" and is_host:
 			# responde dizendo "eu sou um servidor" + porta
-			udp.connect_to_host(ip, LISTEN_PORT)
-			udp.put_var({
+			udp_sender.set_dest_address(ip, LISTEN_PORT)
+			udp_sender.put_var({
 			"players": "server",
 			"server_name":_name_edit.text + " server" ,
 			})
@@ -62,10 +64,10 @@ func get_lan_ip() -> String:
 	return "0.0.0.0"  # fallback
 
 func scan_servers():
-	udp.set_broadcast_enabled(true)
+	udp_sender.set_broadcast_enabled(true)
 	print("Procurando servidores na LAN...")
-	udp.connect_to_host("255.255.255.255", SEND_PORT)
-	udp.put_var("DISCOVER_SERVER")
+	udp_sender.connect_to_host("255.255.255.255", LISTEN_PORT)
+	udp_sender.put_var("DISCOVER_SERVER")
 	
 
 #game
@@ -111,7 +113,7 @@ func _peer_disconnected(id):
 
 func _on_Host_pressed():
 	is_host = true
-	udp.set_broadcast_enabled(false)
+	udp_sender.set_broadcast_enabled(false)
 
 	multiplayer.multiplayer_peer = null
 	peer.create_server(DEF_PORT)
